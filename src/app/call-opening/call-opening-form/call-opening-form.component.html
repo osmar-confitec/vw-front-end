@@ -1,0 +1,402 @@
+<div class="container pt-3">
+  <form novalidate="novalidate" (ngSubmit)="sendCall()" [formGroup]="callOpeningForm" >
+    <div class="card">
+      <div class="card-header text-center ">
+        <h2>
+          Abertura de Chamado
+        </h2>
+      </div>
+      <div class="card-body">
+        <p class="card-title">Para solicitar a abertura de um novo chamado, preencha todos os campos abaixo e clique no
+          botão continuar.</p>
+          <!-- Dados do solicitante. -->
+        <div class="card">
+          <div class="card-header">
+
+            <div >
+              Dados do solicitante
+              <div class="text-right" >
+                <a href="javascript:void(0)" (click)="changeUserCallOpenning(userslist)" >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                  </svg>
+                </a>
+              </div>
+
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+            <div class="form-group col-md-12">
+              <input type="hidden" value="" formControlName="categoriesSelected" />
+              <label for="input-name">Nome:</label>
+              <input
+              formControlName="name"
+              [ngClass]="{'is-invalid': fieldIsValid(name)  }"
+              type="text" class="form-control" id="input-name" readonly >
+              <div  class="invalid-feedback">
+                <p>Atenção preencha o nome (informações não vieram do AD).</p>
+                </div>
+            </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="input-user-id">User ID:</label>
+                <input
+                formControlName="userId"
+                [ngClass]="{'is-invalid': fieldIsValid(userId) }"
+
+                type="text" class="form-control" readonly id="input-user-id">
+                <div  class="invalid-feedback">
+                  <p>Atenção preencha o user id (informações não vieram do AD).</p>
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input-plate">Chapa:</label>
+                <input
+                formControlName="plate"
+
+                type="text" class="form-control" id="input-plate" readonly >
+               <!--  <div  class="invalid-feedback">
+                  <p>Atenção preencha a chapa (informações não vieram do AD).</p>
+                  </div> -->
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="input-telephone">Telefone:</label>
+                <input [textMask]="{mask: maskTelephone}"  type="text"
+                [ngClass]="{'is-invalid': fieldIsValid(telephone) }"
+                formControlName="telephone"
+                class="form-control is-invalid" id="input-telephone">
+                <div  class="invalid-feedback">
+                  <p>Atenção preencha o telefone.</p>
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input-cellphone">Celular:</label>
+                <input
+                formControlName="cellPhone"
+                [textMask]="{mask:maskCelTelephone}"
+                 type="text" class="form-control" id="input-cellphone">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="select-work-schedule">Horário de Trabalho:</label>
+                <select
+                formControlName="workschedule"
+                [ngClass]="{'is-invalid': fieldIsValid(workschedule) }"
+                id="select-work-schedule" class="form-control">
+                  <option value="" selected>Selecione</option>
+                  <option value="1" >1º Turno</option>
+                  <option value="2" >2º Turno</option>
+                  <option value="3" >3º Turno</option>
+                  <option value="4" >Administrativo</option>
+                </select>
+                <div  class="invalid-feedback">
+                  <p>Atenção preencha o horário de trabalho.</p>
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="select-collaborator">Colaborador de:</label>
+                <select
+                formControlName="collaborator"
+                [ngClass]="{'is-invalid': fieldIsValid(collaborator) }"
+                id="select-work-schedule"
+                id="select-collaborator" class="form-control">
+                  <option value="" selected>Selecione</option>
+                  <option value="1" >Escritório</option>
+                  <option value="2" >Produção</option>
+                </select>
+                <div  class="invalid-feedback">
+                  <p>Atenção preencha o colaborador.</p>
+                  </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="select-locality">Localidade:</label>
+                <select
+                formControlName="locality"
+                [ngClass]="{'is-invalid': fieldIsValid(locality) }"
+                id="select-locality" class="form-control">
+                  <option value="" selected>Selecione</option>
+                  <option value="1">Anchieta (São Bernardo do Campo)</option>
+                  <option value="2" >CRT Belo Horizonte</option>
+                  <option value="3" >CRT Goiania</option>
+                  <option value="4" >CRT Joinville</option>
+                  <option value="5" >CRT Porto Alegre</option>
+                  <option value="6" >CRT Recife</option>
+                  <option value="7" >CRT Rio de janeiro</option>
+                  <option value="8" >CRT São josé do Rio Preto</option>
+                  <option value="9" >CRT São Paulo(Academia Volkswagen)</option>
+                  <option value="10" >FIS Competence Center(Água Verde/Curitiba)</option>
+                  <option value="11" >Jabaquara</option>
+                  <option value="12" >Jabaquara Carnaubeiras</option>
+                  <option value="13" >Porto de Paranaguá</option>
+                  <option value="14" >Porto de Suape</option>
+                  <option value="15" >Regional Belo Horizonte</option>
+                  <option value="16" >Regional Brasilia</option>
+                  <option value="17" >Regional Campinas</option>
+                  <option value="18" >Regional Curitiba</option>
+                  <option value="19" >Regional Porto Alegre</option>
+                  <option value="20" >Regional Recife</option>
+                  <option value="21" >Regional Rio Claro</option>
+                  <option value="22" >Regional Rio de janeiro Barra</option>
+                  <option value="23" >Regional Rio de janeiro Botafogo</option>
+                  <option value="24" >Regional Vila Mariana</option>
+                  <option value="25" >Resende</option>
+                  <option value="26" >São Carlos</option>
+                  <option value="27" >São josé dos Pinhais</option>
+                  <option value="28" >Taubaté</option>
+                  <option value="29" >Vinhedo</option>
+                </select>
+                <div  class="invalid-feedback">
+                  <p>Atenção preencha a localidade.</p>
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="input-reference">Referência:</label>
+                <input
+                formControlName="reference"
+                type="text" class="form-control" id="input-reference">
+              </div>
+            </div>
+            <div class="form-row" >
+              <div class="form-group col-md-3">
+                <label for="select-ala">Ala:</label>
+                <select formControlName="ala"
+                 [ngClass]="{'is-invalid': fieldIsValid(ala) }"
+                  id="select-ala" class="form-control">
+                  <option value="" selected>Selecione</option>
+                  <option value="1" >01</option>
+                  <option value="2" >02</option>
+                  <option value="3" >03</option>
+                  <option value="4" >04</option>
+                  <option value="5" >05</option>
+                  <option value="51" >5A</option>
+                  <option value="6" >06</option>
+                  <option value="7" >07</option>
+                  <option value="8" >08</option>
+                  <option value="81" >8A</option>
+                  <option value="82" >8B</option>
+                  <option value="9" >09</option>
+                  <option value="10" >10</option>
+                  <option value="11" >11</option>
+                  <option value="12" >12</option>
+                  <option value="13" >13</option>
+                  <option value="14" >14</option>
+                  <option value="15" >15</option>
+                  <option value="16" >16</option>
+                  <option value="17" >17</option>
+                  <option value="18" >18</option>
+                  <option value="19" >19</option>
+                  <option value="20" >20</option>
+                  <option value="21" >21</option>
+                  <option value="22" >22</option>
+                  <option value="23" >23</option>
+                  <option value="24" >24</option>
+                  <option value="25" >25</option>
+                  <option value="26" >26</option>
+                  <option value="27" >27</option>
+                  <option value="28" >28</option>
+                  <option value="29" >29</option>
+                  <option value="30" >30</option>
+                  <option value="31" >31</option>
+                  <option value="32" >32</option>
+                  <option value="33" >33</option>
+                  <option value="34" >34</option>
+                  <option value="35" >35</option>
+                  <option value="36" >36</option>
+                  <option value="37" >37</option>
+                  <option value="38" >38</option>
+                  <option value="39" >Outros</option>
+                  <option value="40" >Não se aplica</option>
+                </select>
+                <div  class="invalid-feedback">
+                  <p>Atenção selecione a ala.</p>
+                  </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="select-floor">Andar:</label>
+                <select formControlName="floor"
+                 [ngClass]="{'is-invalid': fieldIsValid(floor) }" id="select-floor" class="form-control">
+                  <option value="" selected>Selecione</option>
+                  <option value="1" >-1</option>
+                  <option value="2" >-2</option>
+                  <option value="3" >0</option>
+                  <option value="4" >1</option>
+                  <option value="5" >2</option>
+                  <option value="6" >3</option>
+                  <option value="7" >4</option>
+                  <option value="8" >5</option>
+                  <option value="9" >6</option>
+                  <option value="10" >7</option>
+                  <option value="11" >8</option>
+                  <option value="12" >9</option>
+                  <option value="13" >10</option>
+                  <option value="14" >11</option>
+                  <option value="15" >12</option>
+                  <option value="16" >13</option>
+                  <option value="17" >14</option>
+                  <option value="18" >15</option>
+                  <option value="19" >16</option>
+                  <option value="20" >17</option>
+                  <option value="21" >18</option>
+                  <option value="22" >19</option>
+                  <option value="23" >Mezanino</option>
+                  <option value="24" >Porão</option>
+                  <option value="25" >Subsolo</option>
+                  <option value="26" >Térreo</option>
+                </select>
+                <div  class="invalid-feedback">
+                  <p>Atenção selecione o andar.</p>
+                  </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="select-side">Lado:</label>
+                <select
+                formControlName="side"
+                [ngClass]="{'is-invalid': fieldIsValid(side)  }"
+                id="select-side" class="form-control">
+                  <option value="" selected>Selecione</option>
+                  <option value="1">Santo Amaro</option>
+                  <option value="2">Anchieta</option>
+                  <option value="3">Santos</option>
+                  <option value="4">São Paulo</option>
+                  <option value="5">Não se aplica</option>
+                </select>
+                <div  class="invalid-feedback">
+                  <p>Atenção selecione o lado.</p>
+                  </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="input-column">Coluna:</label>
+                <input
+                formControlName="column"
+                type="text" class="form-control" id="input-column">
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-muted"></div>
+        </div>
+        <!-- Contato alternativo. -->
+        <div class="card">
+          <div class="card-header">
+            Contato alternativo
+          </div>
+          <div class="card-body">
+            <div class="form-row" >
+              <div class="form-group col-md-12">
+                <label for="input-name-contact">Nome:</label>
+                <input
+                formControlName="nameContact"
+                type="text" class="form-control" id="input-nome-contact">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="input-phone-contact">Telefone/Celular:</label>
+                <input
+                formControlName="phoneContact"
+                [textMask]="{mask: maskCelTelephone}"
+                 type="text" class="form-control" id="input-phone-contact">
+              </div>
+              <div class="form-group col-md-9">
+                <label for="input-email-contact">E-mail:</label>
+                <input
+                formControlName="emailContact"
+                type="text" class="form-control" id="input-email-contact">
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-muted">
+          </div>
+        </div>
+          <!-- Detalhes da solicitação -->
+          <div class="card">
+            <div class="card-header">
+              Detalhes da requisição.
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="input-group mb-3">
+                  <input
+                  [ngClass]="{'is-invalid':fieldIsValid(categoriesSelected)  }"
+                  readonly type="text" id="input-request" class="form-control" placeholder="Utilize a lupa ao lado para selecionar o serviço" aria-label="Recipient's username" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                    <button (click)="openLg(content)" class="btn btn-primary" type="button" id="btn-add-request">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div  class="invalid-feedback">
+                    <p>Atenção selecione a categoria.</p>
+                    </div>
+                </div>
+              </div>
+              <div class="form-row" >
+                <div class="form-group col-md-12">
+                  <label for="input-title">Título:</label>
+                  <input
+                  formControlName="title"
+                  [ngClass]="{'is-invalid': fieldIsValid(title) }"
+                  [readonly]="categoriesSelected?.errors" type="text" class="form-control" id="input-title">
+                  <div  class="invalid-feedback">
+                    <p>Atenção digite um título.</p>
+                    </div>
+                </div>
+              </div>
+              <div class="form-row" >
+                <div class="form-group col-md-12">
+                  <label for="text-description">Descrição.</label>
+                  <textarea
+                  formControlName="description"
+                  [ngClass]="{'is-invalid':fieldIsValid(description) }"
+                  [readonly]="categoriesSelected?.errors" class="form-control" id="text-description" rows="3"></textarea>
+                  <div  class="invalid-feedback">
+                    <p>Atenção digite uma descrição.</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-muted"></div>
+          </div>
+          <!-- Upload  -->
+          <app-upload-files [Invalidsextensions]="Invalidsextensions" (uploadedFiles)="uploadedFiles($event)" #upload [limitLength]="limitUpload" ></app-upload-files>
+      </div>
+      <div class="card-footer text-muted text-right">
+        <button  type="submit" class="btn btn-primary">Continuar</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-tree-view-categories (sendItensSelected)="sendItensSelected($event)" ></app-tree-view-categories>
+  </div>
+  <div class="modal-footer text-right">
+  </div>
+</ng-template>
+
+<ng-template #userslist let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-users-list (selectedUser)="selectedUser($event)"  ></app-users-list>
+  </div>
+  <div class="modal-footer text-right">
+  </div>
+</ng-template>
+

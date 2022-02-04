@@ -1,0 +1,64 @@
+<div class="container pt-3">
+  <form novalidate="novalidate" (ngSubmit)="sendUnblock()"
+  [formGroup]="sendEvidenceForm" >
+
+   <div class="card">
+     <div class="card-header text-center ">
+       <h2>
+         Envio de Evidências.
+       </h2>
+     </div>
+     <div class="card-body">
+       <p class="card-title">
+         Use o formulário abaixo para enviar evidências como anexo á equipe de suporte, relacionados a uma requisição já existente. Você poderá enviar várias evidências de uma vez, somando no máximo {{limitUploadDescription}} como um todo. Se a soma dos arquivos exceder este limite, realize novos envios separadamente.</p>
+
+       <!-- Dados do solicitante. -->
+       <div class="card">
+         <div class="card-header">
+
+           <div>
+             Envio de evidências
+           </div>
+         </div>
+         <div class="card-body">
+           <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="userId">Nº Requisição/Chamado:</label>
+                <input
+                [ngClass]="{'is-invalid': fieldIsValid(requestNumber)  }"
+                 formControlName="requestNumber"
+                 type="text"
+                 class="form-control"
+                 id="requestNumber"
+                 >
+                <div class="invalid-feedback">
+                  <p>Atenção preencha a Requisição/Chamado:</p>
+                </div>
+              </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group col-md-12">
+             <!--    -->
+                 <!-- Upload  -->
+               <app-upload-files [Invalidsextensions]="Invalidsextensions" (uploadedFiles)="uploadedFiles($event)" #upload [limitLength]="limitUpload" ></app-upload-files>
+             </div>
+           </div>
+           <div class="form-row" >
+            <div class="form-group col-md-12">
+              <label for="infoAditional">Informações adicionais.</label>
+              <textarea
+              formControlName="infoAditional"
+              class="form-control" id="infoAditional" rows="3"></textarea>
+            </div>
+          </div>
+         </div>
+       </div>
+       <!-- <div class="card-footer text-muted"></div> -->
+     </div>
+     <div class="card-footer text-muted text-right">
+       <button type="submit" class="btn btn-primary">Continuar</button>
+     </div>
+   </div>
+ </form>
+</div>
+

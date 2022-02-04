@@ -1,0 +1,76 @@
+<div class="card">
+  <div class="card-header">
+    Selecione a categoria.
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <ul *ngIf="isAnycallCategoriesCI" class="list-group">
+          <li class="list-group-item active">Categorias selecionadas</li>
+          <li class="list-group-item"
+            [ngClass]="{'list-group-item-danger':!isValidcallCategoriesCI,'list-group-item-success':isValidcallCategoriesCI}"
+            *ngFor="let item of callCategoriesCI">
+            <span>{{item.path}}</span>
+            <p *ngIf="!isValidcallCategoriesCI">Atenção selecione apenas uma categoria</p>
+          </li>
+        </ul>
+    </div>
+    </div>
+    <div class="form-row">
+      <div class="input-group mb-3">
+        <input #txtSearchCategory (keyup.enter)="onEnterInputSearchCategory(txtSearchCategory.value)" type="text"
+          id="input-request" class="form-control"
+          placeholder="Utilize a lupa ao lado para pesquisar a categoria ou pressione enter após digitar."
+          aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button (click)="searchCategories(txtSearchCategory.value)" class="btn btn-primary" type="button"
+            id="btn-add-request">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <ngx-treeview (selectedChange)="onSelectedChange($event)" (filterChange)="onFilterChange($event)"
+          [items]="items" [config]="config" [itemTemplate]="itemTemplate">
+        </ngx-treeview>
+
+        <ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand"
+          let-onCheckedChange="onCheckedChange">
+          <div class="form-inline row-item">
+            <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa"
+              [ngClass]="{'fa-caret-right':item.collapsed,'fa-caret-down':!item.collapsed}"></i>
+            <div class="form-check">
+              <input  type="checkbox" class="form-check-input" [(ngModel)]="item.checked"
+                (ngModelChange)="onCheckedChange()" [disabled]="item.disabled" [indeterminate]="item.indeterminate" />
+              <label class="form-check-label" (click)="item.checked = !item.checked; onCheckedChange()"> {{item.text}}
+              </label>
+              <label class="form-check-label">
+                <section *ngIf="item.children">
+                  <img class="icon icon-w tree-view-all" src="assets/img/checked.svg"
+                    *ngIf="item.checked && item.internalChecked" (click)="selectChildren(item)" />
+                  <img class="icon icon-w tree-view-all" src="assets/img/unchecked.svg"
+                    *ngIf="!item.checked || !item.internalChecked" (click)="selectChildren(item)" />
+                </section>
+              </label>
+              <a #searchButton   href="javascript:void(0)" (click)="selectedItem(item);" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                  <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-muted text-right">
+    <button (click)="selectCategories()" type="button" class="btn btn-primary">Selecionar</button>
+  </div>
+</div>

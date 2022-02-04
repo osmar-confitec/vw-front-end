@@ -1,0 +1,45 @@
+<div class="container pt-3">
+   <form novalidate="novalidate" (ngSubmit)="sendUnblock()" [formGroup]="unblockForm" >
+    <div class="card">
+      <div class="card-header text-center ">
+        <h2>
+          Desbloquear Usuário de Rede.
+        </h2>
+      </div>
+      <div class="card-body">
+        <p class="card-title">
+          Por favor, Informe abaixo o UserID do colaborador que será desbloqueado.</p>
+        <!-- Dados do solicitante. -->
+        <div class="card">
+          <div class="card-header">
+
+            <div>
+              Dados do colaborador
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="userId">User ID:</label>
+                <input
+                [ngClass]="{'is-invalid':fieldIsValid(userId) }"
+                 formControlName="userId"
+                 type="text"
+                 class="form-control"
+                 id="userId"
+                 >
+                <div class="invalid-feedback">
+                  <p>Atenção preencha o User ID:</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card-footer text-muted"></div> -->
+      </div>
+      <div class="card-footer text-muted text-right">
+        <button type="submit" class="btn btn-primary">Continuar</button>
+      </div>
+    </div>
+  </form>
+</div>

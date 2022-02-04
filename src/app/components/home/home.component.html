@@ -1,0 +1,68 @@
+<div class="jumbotron jumbotron-image" >
+  <h1 class="display-4">App Service Desk VW</h1>
+  <p class="lead">Sejam bem-vindos ao App Service Desk da Volkswagen.</p>
+  <hr class="my-4">
+
+</div>
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div class="col">
+        <div class="card shadow-sm">
+          <a [routerLink]="['/chamados/abrir-chamado']" >
+
+            <img  class="img-fluid" alt="Abertura de chamados" src="assets/img/call-opening.png" class="rounded float-left"  />
+          </a>
+          <div class="card-body">
+              <p class="card-text">
+                Abrir Novo Chamado
+              </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card shadow-sm">
+          <a [routerLink]="['/evidencia/enviar-evidencia']" >
+            <img  src="assets/img/send-evidences.png" class="img-fluid"  />
+          </a>
+          <div class="card-body">
+
+            <p class="card-text">
+              Enviar Evidências
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card shadow-sm">
+          <a [routerLink]="['/desbloquear/desbloquear-usuario']" >
+            <img src="assets/img/key.png" class="img-fluid"  />
+          </a>
+          <div class="card-body">
+            <p class="card-text">
+              Desbloquear Usuário de Rede.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col">
+        <div class="card shadow-sm">
+          <a [routerLink]="['/categorias-chamado/list-callcategories']" >
+            <img src="assets/img/category-list.png" class="img-fluid"  />
+          </a>
+          <div class="card-body">
+            <p class="card-text">
+              Categorias de Chamado.
+            </p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,65 @@
+<div class="card">
+  <div class="card-header">
+    Seleção de usuários para abrir chamados.
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="input-group mb-3">
+        <input #txtSearchUsers (keyup.enter)="searchUsers(txtSearchUsers.value)"
+           type="text"
+          id="input-request" class="form-control"
+          placeholder="Utilize a lupa ao lado para pesquisar os usuários ou pressione enter após digitar."
+          aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button (click)="searchUsers(txtSearchUsers.value)" class="btn btn-primary" type="button"
+            id="btn-add-request">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <div *ngIf="!usersEmpty" class="overflow-auto length-table" >
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of usersSeach" >
+                  <td>
+                    {{user.name}}
+                  </td>
+                  <td>
+                    {{user.email}}
+                  </td>
+                  <td>
+                  <a (click)="selectUser(user)" href="javascript:void(0)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
+                      <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
+                      <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
+                    </svg>
+                  </a>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div *ngIf="usersEmpty == true" class="alert alert-primary text-center" role="alert" >
+           Atenção não há dados para selecionar.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-muted text-right">
+  </div>
+</div>
